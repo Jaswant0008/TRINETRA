@@ -31,6 +31,30 @@ Traditional tools merely summarize individual files. **TRINETRA connects fragmen
 
 ---
 
+## 📸 Interface Screenshots
+
+### 1. Intelligence Fusion Dashboard
+The unified operational dashboard with dynamic statistics (`SOURCES`, `ENTITIES`, `RELATIONSHIPS`, `CONFLICTS`) and full-width interactive knowledge network.
+![Intelligence Fusion Dashboard](assets/screenshots/dashboard.png)
+
+### 2. Sources Management & Multi-PDF Ingestion
+Multi-format ingestion pipeline showing real-time processing status, entity & relationship counts, and action inspectors.
+![Intelligence Sources](assets/screenshots/sources.png)
+
+### 3. Two-Column PDF & Extraction Inspector
+Direct grounding modal comparing raw document preview against extracted entities, RDF triples, and citation snippets.
+![PDF Inspector](assets/screenshots/pdf_inspector.png)
+
+### 4. Interactive Decentralized Knowledge Graph
+Category-filtered force-directed knowledge graph with node search, zoom controls, and entity detail drawer.
+![Knowledge Graph](assets/screenshots/knowledge_graph.png)
+
+### 5. Ask TRINETRA — Source-Grounded GraphRAG
+Natural-language intelligence querying with grounded narrative answers, related entities, source citations, and graph highlighting.
+![Ask TRINETRA](assets/screenshots/ask_trinetra.png)
+
+---
+
 ## 🎨 Official Visual Design (Sections 3, 4, 5, 24)
 
 - **Legitimate Official Platform:** Designed as a real-world institutional platform used by defense analysts, research organizations, and government departments. **No gaming UI, war simulators, hacker terminals, or sci-fi red alert screens.**
