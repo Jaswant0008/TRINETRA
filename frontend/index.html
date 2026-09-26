@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRINETRA — Multimodal Intelligence Fusion System</title>
+  <meta name="description" content="TRINETRA - Multimodal Intelligence Fusion System. From Fragmented Information to Strategic Insight. Based on PS-05: Decentralized Knowledge Graph Builder Agent.">
+
+  <!-- Typography: Outfit (Defence Headings), Inter (Formal Body), JetBrains Mono (Intelligence Codes & Triples) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Official Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/graph.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP HEADER (Section 3: Title, Status, Synthetic Badge, Demo Action)
+       ======================================================================== -->
+  <header class="official-header">
+    <div class="header-brand">
+      <!-- TRINETRA Emblem: Abstract Eye + 3 Connected Nodes (Vision + Intelligence + Connected Knowledge) -->
+      <div class="brand-emblem" title="TRINETRA Emblem: Vision, Intelligence, Connected Knowledge">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor">
+          <!-- Outer Vision Eye Contour -->
+          <ellipse cx="50" cy="50" rx="44" ry="26" stroke="#22c55e" stroke-width="3.5" />
+          <!-- Central Aperture -->
+          <circle cx="50" cy="50" r="14" stroke="#ffffff" stroke-width="2.5" />
+          <circle cx="50" cy="50" r="5" fill="#22c55e" />
+          <!-- 3 Knowledge Triangulation Nodes -->
+          <circle cx="50" cy="24" r="4.5" fill="#38bdf8" />
+          <circle cx="27" cy="63" r="4.5" fill="#f59e0b" />
+          <circle cx="73" cy="63" r="4.5" fill="#22c55e" />
+          <!-- Connected Relation Rays -->
+          <line x1="50" y1="24" x2="27" y2="63" stroke="#4ade80" stroke-width="1.8" stroke-dasharray="3 3" />
+          <line x1="27" y1="63" x2="73" y2="63" stroke="#4ade80" stroke-width="1.8" stroke-dasharray="3 3" />
+          <line x1="73" y1="63" x2="50" y2="24" stroke="#4ade80" stroke-width="1.8" stroke-dasharray="3 3" />
+        </svg>
+      </div>
+      <div class="brand-text-block">
+        <span class="brand-main-title">TRINETRA</span>
+        <span class="brand-sub-title">Multimodal Intelligence Fusion System</span>
+      </div>
+    </div>
+
+    <!-- Right Header Controls -->
+    <div class="header-status-group">
+      <div class="status-badge" id="system-status-badge">
+        <span class="status-indicator-dot"></span>
+        <span>SYSTEM OPERATIONAL</span>
+      </div>
+      <div class="synthetic-demo-badge" title="Algorithmic demonstration environment. Do not use real operational defence data.">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        <span>FICTIONAL / SYNTHETIC DEMO</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-accent" id="btn-load-demo" title="1-Click Fictional Demonstration Dataset (PS-05)">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          LOAD DEMO DATA
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       DEMO MODE ALERT BANNER (Section 17)
+       ======================================================================== -->
+  <div id="demo-mode-banner" class="demo-mode-alert-banner" style="display: none;">
+    <div style="display: flex; align-items: center;">
+      <span class="demo-banner-tag">DEMO MODE</span>
+      <span>FICTIONAL SYNTHETIC DATA ACTIVE // ALL REPORTS, ENTITIES & RELATIONS ARE SIMULATED</span>
+    </div>
+    <button class="btn btn-outline" id="btn-banner-clear-demo" style="padding: 3px 10px; font-size: 11px; color: #fef3c7; border-color: #d97706; background: rgba(0,0,0,0.3);">
+      Clear Demo Data
+    </button>
+  </div>
+
+  <!-- ========================================================================
+       APPLICATION LAYOUT: FIXED 4-ITEM SIDEBAR + WORKSPACE CONTENT
+       ======================================================================== -->
+  <div class="app-layout" id="main-app-layout">
+    
+    <!-- SIDEBAR: EXACTLY AND ONLY 4 ITEMS + BOTTOM STATUS (Section 2 & 24) -->
+    <aside class="official-sidebar">
+      <div class="sidebar-nav-list">
+        <div class="sidebar-nav-title">INTELLIGENCE PLATFORM</div>
+        
+        <!-- 1. Dashboard -->
+        <div class="sidebar-nav-item active" data-tab="dashboard" id="nav-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Dashboard</span>
+        </div>
+
+        <!-- 2. Sources -->
+        <div class="sidebar-nav-item" data-tab="sources" id="nav-sources">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          <span>Sources</span>
+          <span class="sidebar-badge badge-processed" id="sidebar-sources-count" style="display: none;">0</span>
+        </div>
+
+        <!-- 3. Knowledge Graph -->
+        <div class="sidebar-nav-item" data-tab="graph" id="nav-graph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          <span>Knowledge Graph</span>
+        </div>
+
+        <!-- 4. Ask TRINETRA -->
+        <div class="sidebar-nav-item" data-tab="ask" id="nav-ask">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Ask TRINETRA</span>
+        </div>
+      </div>
+
+      <!-- Bottom Fixed Operational Status (Section 2) -->
+      <div class="sidebar-footer">
+        <div class="sidebar-operational-status">
+          <span class="status-indicator-dot"></span>
+          <span>SYSTEM OPERATIONAL</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================================================================
+         MAIN WORKSPACE CONTENT PANES
+         ====================================================================== -->
+    <main class="workspace-content">
+
+      <!-- ====================================================================
+           1. DASHBOARD VIEW (Section 4)
+           ==================================================================== -->
+      <section class="content-pane active" id="pane-dashboard">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">INTELLIGENCE FUSION DASHBOARD</h1>
+            <p class="page-subtitle">“Connect fragmented information. Discover relationships. Query the knowledge network.”</p>
+          </div>
+          <div class="status-badge" style="font-size: 11px;">
+            <span class="status-indicator-dot"></span> SECURE ANALYTICS ENVIRONMENT
+          </div>
+        </div>
+
+        <!-- 4 Dynamic Statistics (Section 4): SOURCES, ENTITIES, RELATIONSHIPS, CONFLICTS -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-sources">
+            <span class="kpi-title">SOURCES</span>
+            <span class="kpi-value" id="kpi-sources">0</span>
+            <span class="kpi-subtext">Uploaded Intelligence</span>
+          </div>
+          <div class="kpi-card kpi-entities">
+            <span class="kpi-title">ENTITIES</span>
+            <span class="kpi-value" id="kpi-entities">0</span>
+            <span class="kpi-subtext">Extracted Objects</span>
+          </div>
+          <div class="kpi-card kpi-relationships">
+            <span class="kpi-title">RELATIONSHIPS</span>
+            <span class="kpi-value" id="kpi-relationships">0</span>
+            <span class="kpi-subtext">RDF Triples / Links</span>
+          </div>
+          <div class="kpi-card kpi-conflicts clickable" id="card-kpi-conflicts" title="Click to view Cross-Source Discrepancies">
+            <span class="kpi-title">CONFLICTS</span>
+            <span class="kpi-value" id="kpi-conflicts">0</span>
+            <span class="kpi-subtext">Cross-Source Discrepancies ↗</span>
+          </div>
+        </div>
+
+        <!-- Large Knowledge Network Graph (Full Width & Interactive) -->
+        <div class="official-card dashboard-graph-card">
+          <div class="card-header-bar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="card-title-text">KNOWLEDGE NETWORK</span>
+              <span class="badge" style="background: rgba(34, 197, 94, 0.15); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.3); font-size: 10px;">DECENTRALIZED FUSION</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span id="mini-graph-stats-summary" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+                0 Nodes • 0 Relationships
+              </span>
+              <button class="btn btn-outline" id="btn-open-full-graph" style="padding: 4px 12px; font-size: 11px;">
+                Open Full Graph
+              </button>
+            </div>
+          </div>
+          
+          <div class="card-content-area" style="padding: 0; position: relative; flex: 1; display: flex; flex-direction: column;">
+            <div class="dashboard-graph-canvas-box" id="mini-graph-canvas-container">
+              <canvas id="mini-graph-canvas"></canvas>
+
+              <!-- Empty State Overlay (Zero Sources) -->
+              <div id="mini-graph-empty-state" class="empty-state-overlay">
+                <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <div class="empty-state-title">Knowledge network will appear after reports are processed.</div>
+                <p class="empty-state-desc">Upload reports or click Load Demo Data to build the connected knowledge graph.</p>
+                <button class="btn btn-primary" onclick="window.app.switchTab('sources')" style="margin-top: 10px;">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  UPLOAD REPORTS
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           2. SOURCES PAGE (Section 5)
+           ==================================================================== -->
+      <section class="content-pane" id="pane-sources">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">INTELLIGENCE SOURCES</h1>
+            <p class="page-subtitle">“Upload multiple reports to build a connected knowledge network.”</p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline" id="btn-clear-all-sources" title="Reset all sources to clean slate">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              CLEAR ALL SOURCES
+            </button>
+            <button class="btn btn-primary" id="btn-trigger-upload-dialog">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              + UPLOAD REPORTS
+            </button>
+          </div>
+        </div>
+
+        <div class="sources-container">
+          
+          <!-- Drag & Drop Upload Zone -->
+          <div class="upload-zone-card" id="source-upload-dropzone">
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </div>
+            <div class="upload-title">Drop intelligence reports here, or click to browse</div>
+            <div class="upload-hint">Supports multiple PDF files, DOCX reports, TXT documents & tactical images</div>
+            <input type="file" id="source-file-input" multiple accept=".pdf,.docx,.doc,.txt,.png,.jpg,.jpeg" style="display: none;">
+          </div>
+
+          <!-- Upload Progress Indicator Bar -->
+          <div id="upload-progress-container" style="display: none; background: #111822; border: 1px solid var(--border-subtle); border-radius: 6px; padding: 12px 16px;">
+            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; margin-bottom: 6px;">
+              <span id="upload-progress-label" style="color: var(--accent-military);">PROCESSING INTELLIGENCE SOURCES...</span>
+              <span id="upload-progress-pct" style="color: var(--text-muted);">0%</span>
+            </div>
+            <div style="width: 100%; height: 4px; background: #0c1219; border-radius: 2px; overflow: hidden;">
+              <div id="upload-progress-bar" style="width: 0%; height: 100%; background: var(--accent-military); transition: width 0.3s ease;"></div>
+            </div>
+          </div>
+
+          <!-- Scrollable Table of Sources with Sticky Header -->
+          <div class="source-list-wrapper">
+            <table class="official-table" id="all-sources-table">
+              <thead>
+                <tr>
+                  <th style="width: 32%;">Filename</th>
+                  <th style="width: 10%;">File Type</th>
+                  <th style="width: 16%;">Status</th>
+                  <th style="width: 14%;">Entities</th>
+                  <th style="width: 14%;">Relationships</th>
+                  <th style="width: 14%; text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="all-sources-tbody">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+
+            <!-- Empty State when 0 Sources -->
+            <div id="sources-page-empty-state" class="empty-state-card" style="padding: 48px 24px;">
+              <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              <div class="empty-state-title">No intelligence sources loaded</div>
+              <p class="empty-state-desc">Upload multiple PDF reports to extract entities, map relationships, and synthesize a connected knowledge network.</p>
+              <div style="display: flex; gap: 10px; margin-top: 12px;">
+                <button class="btn btn-primary" onclick="document.getElementById('source-file-input').click()">
+                  SELECT FILES
+                </button>
+                <button class="btn btn-accent" onclick="window.app.handleLoadDemo()">
+                  LOAD DEMO REPORTS
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           3. KNOWLEDGE GRAPH PAGE (Section 9)
+           ==================================================================== -->
+      <section class="content-pane" id="pane-graph">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">KNOWLEDGE NETWORK</h1>
+            <p class="page-subtitle">“Interactive decentralized graph synthesized from verified source evidence.”</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn btn-outline" id="btn-toggle-graph-conflicts" title="Filter to entities with detected conflicts">
+              <span class="status-indicator-dot" style="background-color: var(--accent-conflict); box-shadow: 0 0 6px var(--accent-conflict);"></span>
+              SHOW CONFLICTS
+            </button>
+            <button class="btn btn-outline" id="btn-toggle-graph-resolved" title="View resolved canonical clusters">
+              RESOLVED CLUSTERS
+            </button>
+          </div>
+        </div>
+
+        <!-- Full Interactive Graph Canvas Container -->
+        <div class="graph-viewport-wrapper" id="main-graph-wrapper">
+          <canvas id="knowledge-graph-canvas" class="graph-canvas-element"></canvas>
+
+          <!-- Floating Category Filter Pills (Top Left) -->
+          <div class="graph-top-toolbar">
+            <button class="graph-filter-btn active" data-category="ALL">ALL</button>
+            <button class="graph-filter-btn" data-category="Equipment">EQUIPMENT</button>
+            <button class="graph-filter-btn" data-category="Organizations">ORGANIZATIONS</button>
+            <button class="graph-filter-btn" data-category="Locations">LOCATIONS</button>
+            <button class="graph-filter-btn" data-category="People">PEOPLE</button>
+            <button class="graph-filter-btn" data-category="Events">EVENTS</button>
+          </div>
+
+          <!-- Floating Entity Search Bar -->
+          <div class="graph-search-toolbar">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="graph-search-input" class="graph-search-input" placeholder="Search node in graph...">
+          </div>
+
+          <!-- Floating Zoom & Reset Controls (Top Right) -->
+          <div class="graph-side-controls">
+            <button class="ctrl-btn" id="btn-ctrl-zoom-in" title="Zoom In">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="ctrl-btn" id="btn-ctrl-zoom-out" title="Zoom Out">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+            <button class="ctrl-btn" id="btn-ctrl-reset" title="Reset View">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            </button>
+          </div>
+
+          <!-- Bottom Topology Statistics Bar -->
+          <div class="graph-bottom-bar" id="graph-topology-stats">
+            0 Nodes • 0 RDF Relationships • Drag nodes to reposition • Scroll to zoom
+          </div>
+
+          <!-- Empty State Overlay for Knowledge Graph Page (Section 9) -->
+          <div id="full-graph-empty-state" class="empty-state-overlay" style="position: absolute; width: 100%; height: 100%;">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            <div class="empty-state-title">Knowledge network will appear after reports are processed.</div>
+            <p class="empty-state-desc">Upload reports or load the demo dataset to visualize fused multi-source knowledge.</p>
+            <button class="btn btn-primary" onclick="window.app.switchTab('sources')" style="margin-top: 10px;">
+              GO TO SOURCES
+            </button>
+          </div>
+
+          <!-- Sliding Entity Detail Drawer (Right Side) -->
+          <div class="entity-side-panel" id="entity-side-panel">
+            <div class="entity-panel-header">
+              <span class="entity-panel-title">ENTITY DETAILS</span>
+              <button class="btn-close-panel" id="btn-close-side-panel">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+            <div class="entity-panel-content" id="entity-panel-content">
+              <!-- Dynamically populated with ENTITY, TYPE, MENTIONED IN, CONNECTED TO, EVIDENCE -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           4. ASK TRINETRA (Section 10, 11, 12)
+           ==================================================================== -->
+      <section class="content-pane" id="pane-ask">
+        <div class="page-title-bar">
+          <div>
+            <h1 class="page-title">ASK TRINETRA</h1>
+            <p class="page-subtitle">“Ask questions across your processed intelligence sources.”</p>
+          </div>
+          <div class="status-badge" style="font-size: 11px;">
+            <span class="status-indicator-dot"></span> SOURCE-GROUNDED QUESTION ANSWERING
+          </div>
+        </div>
+
+        <div class="ask-trinetra-layout">
+          
+          <!-- Large Question Input Card -->
+          <div class="query-input-card">
+            <div class="query-input-wrapper">
+              <input type="text" id="query-input-field" class="query-input-field" placeholder="Ask TRINETRA anything about the processed reports..." autocomplete="off">
+              <button class="btn btn-accent" id="btn-submit-query" style="padding: 0 24px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                ASK
+              </button>
+            </div>
+
+            <!-- Example Questions Clickable Pills (Section 10) -->
+            <div class="example-questions-row">
+              <span class="example-q-label">Suggested Queries:</span>
+              <span class="example-q-pill" data-query="What information is available about Vehicle A?">“What information is available about Vehicle A?”</span>
+              <span class="example-q-pill" data-query="Which reports mention Unit Alpha?">“Which reports mention Unit Alpha?”</span>
+              <span class="example-q-pill" data-query="What entities are connected to Incident Y?">“What entities are connected to Incident Y?”</span>
+              <span class="example-q-pill" data-query="What changed between Report 01 and Report 03?">“What changed between Report 01 and Report 03?”</span>
+              <span class="example-q-pill" data-query="Are there conflicting details across the reports?">“Are there conflicting details across the reports?”</span>
+            </div>
+          </div>
+
+          <!-- Processing State -->
+          <div id="query-loading-indicator" style="display: none; text-align: center; padding: 24px;">
+            <span class="spinner" style="margin-bottom: 8px;"></span>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-military);">SEARCHING KNOWLEDGE GRAPH & CITING SOURCE EVIDENCE...</div>
+          </div>
+
+          <!-- Empty State (Zero Sources or Prompt) -->
+          <div id="ask-empty-state" class="empty-state-card" style="padding: 40px 20px;">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <div class="empty-state-title" id="ask-empty-title">Ready for Multi-Source Intelligence Query</div>
+            <p class="empty-state-desc" id="ask-empty-desc">Ask natural-language questions across verified reports. TRINETRA answers using extracted entities, triples, and source citations.</p>
+          </div>
+
+          <!-- TRINETRA Answer Result Card (Section 11) -->
+          <div id="answer-container" style="display: none;">
+            <div class="answer-result-card">
+              <div class="answer-header-bar">
+                <span class="answer-header-title">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  TRINETRA ANSWER
+                </span>
+                <button class="btn btn-outline" id="btn-answer-view-graph" style="padding: 4px 12px; font-size: 11px;">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line></svg>
+                  VIEW IN GRAPH
+                </button>
+              </div>
+
+              <div class="answer-body">
+                <!-- Answer Narrative -->
+                <div class="answer-narrative" id="answer-narrative-text">
+                  <!-- Grounded answer text -->
+                </div>
+
+                <!-- Related Entities -->
+                <div id="answer-related-entities-section">
+                  <div class="answer-section-label">RELATED ENTITIES</div>
+                  <div class="entity-chips-flow" id="answer-related-entities-list">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+
+                <!-- Source Evidence Citations -->
+                <div id="answer-evidence-section">
+                  <div class="answer-section-label">SOURCE EVIDENCE</div>
+                  <div class="evidence-cards-list" id="answer-evidence-cards-list">
+                    <!-- Populated dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insufficient Evidence Result Card (Section 12) -->
+          <div id="insufficient-evidence-container" style="display: none;">
+            <div class="insufficient-evidence-box">
+              <div class="insufficient-title">INSUFFICIENT SOURCE EVIDENCE</div>
+              <p class="insufficient-desc" id="insufficient-evidence-desc">
+                The available reports do not contain enough information to answer this question reliably.
+              </p>
+              <div id="insufficient-sources-checked" style="margin-top: 10px; font-family: var(--font-mono); font-size: 11px; color: #fef08a;">
+                <!-- List of sources searched -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       MODALS: PDF INSPECTOR, ENTITY RESOLUTION, CONFLICTS
+       ======================================================================== -->
+
+  <!-- 1. PDF INSPECTOR MODAL (Section 6: Clean Two-Column Inspector) -->
+  <div class="modal-overlay" id="pdf-inspector-modal">
+    <div class="inspector-modal-window">
+      <div class="inspector-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--accent-military)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: #ffffff;" id="inspector-modal-filename">REPORT_01.pdf</span>
+          <span class="badge badge-processed" id="inspector-modal-status">PROCESSED</span>
+        </div>
+        <button class="btn-close-panel modal-close-btn" id="btn-close-pdf-modal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="inspector-body-split">
+        <!-- LEFT: DOCUMENT PREVIEW -->
+        <div class="inspector-pdf-col">
+          <div class="col-header-bar">
+            <span>DOCUMENT PREVIEW</span>
+            <span id="inspector-page-indicator">PAGE 1 OF 2</span>
+          </div>
+          <div class="inspector-doc-content" id="inspector-doc-view">
+            <!-- Rendered document page content -->
+          </div>
+        </div>
+
+        <!-- RIGHT: TRINETRA ANALYSIS -->
+        <div class="inspector-analysis-col">
+          <div class="col-header-bar">
+            <span>TRINETRA ANALYSIS</span>
+            <span style="color: var(--accent-military);">VERIFIED GROUNDING</span>
+          </div>
+          <div class="inspector-analysis-content">
+            
+            <!-- Extracted Entities -->
+            <div class="analysis-section-block">
+              <div class="analysis-section-heading">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                EXTRACTED ENTITIES
+              </div>
+              <div class="entity-chips-flow" id="inspector-entities-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Relationships -->
+            <div class="analysis-section-block">
+              <div class="analysis-section-heading">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                RELATIONSHIPS
+              </div>
+              <div id="inspector-triples-list">
+                <!-- Dynamically populated: Vehicle A -> equipped with -> Weapon X -->
+              </div>
+            </div>
+
+            <!-- Source Evidence -->
+            <div class="analysis-section-block">
+              <div class="analysis-section-heading">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                SOURCE EVIDENCE
+              </div>
+              <div id="inspector-evidence-list">
+                <!-- Citation quotes and page numbers -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. ENTITY RESOLUTION DRAWER / MODAL (Section 8) -->
+  <div class="modal-overlay" id="resolutions-modal">
+    <div class="inspector-modal-window" style="max-width: 860px; height: 75vh;">
+      <div class="inspector-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--accent-gold)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: #ffffff;">ENTITY RESOLUTION INSPECTOR</span>
+          <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">PS-05 ALIAS DISAMBIGUATION</span>
+        </div>
+        <button class="btn-close-panel modal-close-btn" id="btn-close-resolutions-modal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+        <p style="color: var(--text-muted); font-size: 12.5px;">
+          TRINETRA continuously audits multi-report entity variants. High-confidence common entities are harmonized into single knowledge nodes. Low-confidence matches remain flagged for analyst inspection rather than silently merging.
+        </p>
+
+        <div id="resolutions-list-container" style="display: flex; flex-direction: column; gap: 14px;">
+          <!-- Dynamically populated with POTENTIAL SAME ENTITY cards -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. CONFLICT DETECTION DRAWER / MODAL (Section 13) -->
+  <div class="modal-overlay" id="conflicts-modal">
+    <div class="inspector-modal-window" style="max-width: 860px; height: 75vh;">
+      <div class="inspector-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--accent-conflict)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span style="font-family: var(--font-heading); font-size: 15px; font-weight: 700; color: #ffffff;">CROSS-REPORT CONFLICT INSPECTOR</span>
+          <span class="badge badge-conflict">DISCREPANCY AUDIT</span>
+        </div>
+        <button class="btn-close-panel modal-close-btn" id="btn-close-conflicts-modal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+        <p style="color: var(--text-muted); font-size: 12.5px;">
+          When separate intelligence reports contain conflicting values for the same entity attribute, TRINETRA flags the discrepancy and preserves both sources for analyst verification without arbitrary suppression.
+        </p>
+
+        <div id="conflicts-list-container" style="display: flex; flex-direction: column; gap: 14px;">
+          <!-- Dynamically populated with CONFLICT DETECTED cards -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/graph_visualizer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

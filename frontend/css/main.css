@@ -1,0 +1,601 @@
+/* ==========================================================================
+   TRINETRA — Multimodal Intelligence Fusion System
+   Institutional 2026 Defence-Intelligence Theme
+   Palette: Dark Charcoal (#0B0F0E), Deep Navy/Dark Graphite Panels (#101721),
+   Military Green Accents (#3e5c42, #22c55e), Amber/Gold (#d97706), Restrained Red (#ef4444)
+   ========================================================================== */
+
+:root {
+  /* Core Dark Defence Theme */
+  --bg-app: #0b0f0e;                  /* Near-black charcoal */
+  --bg-app-pattern: #0e1412;
+  --bg-panel: #11181f;                /* Deep navy / dark graphite panel */
+  --bg-panel-elevated: #15202b;       /* Slightly lighter graphite surface */
+  --bg-card: #131c26;                 /* Structured card surface */
+  --bg-card-hover: #182431;
+  --bg-input: #0c1219;
+  
+  /* Borders & Dividers */
+  --border-subtle: #1c2a24;           /* Subtle dark olive-tinted border */
+  --border-light: #24352f;            /* Border highlight */
+  --border-focus: #3e5c42;            /* Active olive border */
+
+  /* Typography */
+  --text-main: #f5f5f4;               /* Warm white */
+  --text-sub: #c9d1cc;                /* Secondary warm white */
+  --text-muted: #8b9e93;              /* Grey-green tactical metadata */
+  --text-dim: #5c6e64;                /* Dimmed micro-text */
+
+  /* Accents */
+  --accent-military: #22c55e;         /* Tactical operational green */
+  --accent-olive-deep: #17261b;       /* Dark olive background fill */
+  --accent-olive-border: #2d4532;     /* Olive accent border */
+  --accent-gold: #f59e0b;             /* Amber/gold tactical highlight */
+  --accent-gold-deep: #281e09;
+  --accent-blue: #38bdf8;             /* Intelligence network cyan/blue */
+  --accent-conflict: #ef4444;         /* Restrained red for discrepancies */
+  --accent-conflict-deep: #2b1113;
+
+  /* Node Categorization Colors (Subtle, non-neon) */
+  --node-equipment: #94a3b8;          /* Slate grey: Equipment */
+  --node-organization: #22c55e;       /* Muted military green: Organizations */
+  --node-location: #f59e0b;           /* Amber/Gold: Locations */
+  --node-people: #38bdf8;             /* Intelligence blue: People */
+  --node-event: #fb923c;              /* Orange: Events */
+
+  /* Fonts */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Shadows & Glassmorphism */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.65);
+  --glass-panel: rgba(17, 24, 31, 0.92);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle Tactical Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: 
+    linear-gradient(to right, rgba(34, 197, 94, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle Fighter Jet / Defence Intelligence Background Visual (2026 Defence Aesthetic) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: 
+    radial-gradient(circle at 85% 15%, rgba(34, 197, 94, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 15% 85%, rgba(56, 189, 248, 0.04) 0%, transparent 45%),
+    linear-gradient(135deg, rgba(11, 15, 14, 0.94) 0%, rgba(11, 15, 14, 0.88) 50%, rgba(14, 20, 25, 0.92) 100%),
+    url('../assets/images/hero_jet_bg.jpg');
+  background-position: top right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+  filter: contrast(120%) grayscale(60%);
+}
+
+/* Clean Institutional Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(12, 18, 25, 0.8);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-focus);
+}
+
+/* ==========================================================================
+   TOP HEADER
+   ========================================================================== */
+.official-header {
+  position: relative;
+  height: 64px;
+  background: var(--glass-panel);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-emblem {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-emblem svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.35));
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-main-title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-main);
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-sub-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.header-status-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  background: var(--accent-olive-deep);
+  border: 1px solid var(--accent-olive-border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-military);
+  letter-spacing: 0.5px;
+}
+
+.status-indicator-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--accent-military);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-military);
+  animation: pulse-dot 2.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.synthetic-demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--accent-gold-deep);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  letter-spacing: 0.5px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   DEMO MODE ALERT BANNER
+   ========================================================================== */
+.demo-mode-alert-banner {
+  background: linear-gradient(90deg, #2b1f09 0%, #1c261e 100%);
+  border-bottom: 1px solid #784c0c;
+  padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #fde68a;
+  z-index: 90;
+  animation: fadeIn 0.25s ease;
+}
+
+.demo-banner-tag {
+  background: #d97706;
+  color: #0b0f0e;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-right: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   APP LAYOUT & FIXED SIDEBAR
+   ========================================================================== */
+.app-layout {
+  position: relative;
+  display: flex;
+  height: calc(100vh - 64px);
+  width: 100vw;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.app-layout.has-banner {
+  height: calc(100vh - 98px);
+}
+
+/* FIXED SIDEBAR: EXACTLY 4 ITEMS + BOTTOM STATUS */
+.official-sidebar {
+  width: 230px;
+  min-width: 230px;
+  max-width: 230px;
+  background: #0f161c;
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 10px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.sidebar-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-nav-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1.2px;
+  padding: 6px 12px 2px 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: var(--text-sub);
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.sidebar-nav-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-muted);
+  transition: stroke 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-nav-item:hover {
+  background: rgba(36, 53, 47, 0.4);
+  color: var(--text-main);
+}
+
+.sidebar-nav-item:hover svg {
+  stroke: var(--accent-military);
+}
+
+.sidebar-nav-item.active {
+  background: var(--accent-olive-deep);
+  color: #ffffff;
+  font-weight: 600;
+  border: 1px solid var(--accent-olive-border);
+}
+
+.sidebar-nav-item.active svg {
+  stroke: var(--accent-military);
+}
+
+.sidebar-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--accent-military);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 6px var(--accent-military);
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.sidebar-footer {
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-operational-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(14, 25, 18, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-military);
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   WORKSPACE CONTENT & PANES
+   ========================================================================== */
+.workspace-content {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-pane {
+  display: none;
+  padding: 24px 30px 40px 30px;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100%;
+}
+
+.content-pane.active {
+  display: flex;
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Page Title Bar */
+.page-title-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-style: italic;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  outline: none;
+  user-select: none;
+}
+
+.btn-primary {
+  background: var(--accent-olive-deep);
+  color: #86efac;
+  border: 1px solid var(--accent-olive-border);
+}
+
+.btn-primary:hover {
+  background: #1e3623;
+  color: #ffffff;
+  border-color: var(--accent-military);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, #1b3d22 0%, #0d2815 100%);
+  color: #4ade80;
+  border: 1px solid #2e6939;
+}
+
+.btn-accent:hover {
+  background: linear-gradient(135deg, #23522c 0%, #133a1e 100%);
+  color: #ffffff;
+  border-color: #3fb950;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-sub);
+  border: 1px solid var(--border-light);
+}
+
+.btn-outline:hover {
+  background: rgba(36, 53, 47, 0.3);
+  color: var(--text-main);
+  border-color: var(--border-focus);
+}
+
+.btn-secondary {
+  background: #141f2a;
+  color: var(--text-sub);
+  border: 1px solid #1f2e3d;
+}
+
+.btn-secondary:hover {
+  background: #1a2a3a;
+  color: var(--text-main);
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+/* Conceptual Pipeline Bar (Section 15) */
+.fusion-pipeline-bar {
+  display: flex;
+  align-items: center;
+  background: #0d141b;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 8px 14px;
+  overflow-x: auto;
+  gap: 4px;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.pipeline-step.active {
+  color: var(--accent-military);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.pipeline-step-num {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--text-dim);
+}
+
+.pipeline-step.active .pipeline-step-num {
+  background: var(--accent-military);
+  color: #0b0f0e;
+  border-color: var(--accent-military);
+  font-weight: 800;
+}
+
+.pipeline-arrow {
+  color: var(--text-dim);
+  font-size: 11px;
+}

@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRINETRA — Hackathon Presentation (PS-05) // PowerPoint Slideshow Mode</title>
+  <meta name="description" content="TRINETRA: Multimodal Intelligence Fusion System - 10-Slide Military Green Presentation in Native PowerPoint Slideshow Format">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========================================================================
+       MILITARY GREEN TACTICAL PALETTE & SLIDESHOW DESIGN TOKENS
+       ======================================================================== */
+    :root {
+      --bg-color: #121b14;         /* Deep Military Green Slide Canvas */
+      --canvas-outer: #0b110c;     /* Presentation Letterbox Background */
+      --card-bg: #1c2b20;          /* Tactical Olive Drab Card */
+      --card-border: #2e4635;      /* Subtle Military Green Border */
+      --card-hover: #263c2c;       /* Hover Surface */
+      --card-dark: #152217;        /* Shadow Inset Dark Olive */
+      --green: #4ade80;            /* Spec-Ops Vivid Green */
+      --camo-olive: #6b8e4e;       /* Field Olive / Camo */
+      --cyan: #2dd4bf;             /* Tactical Night-Vision Mint / Cyan */
+      --gold: #f59e0b;             /* Insignia Brass Gold */
+      --gold-light: #fed7aa;       /* Soft Amber */
+      --red: #ef4444;              /* Threat / Discrepancy Red */
+      --text-white: #ffffff;       /* Pure Stencil White */
+      --text-offwhite: #f1f5f9;    /* Technical Crisp White */
+      --text-muted: #a3b899;       /* Camo Muted Slate */
+      --text-dim: #657e68;         /* Tactical Dim */
+      --font-heading: 'Outfit', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--canvas-outer);
+      color: var(--text-white);
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      cursor: default;
+    }
+
+    /* ========================================================================
+       POWERPOINT 16:9 SLIDE CANVAS (RESPONSIVE FULLSCREEN FORMAT)
+       ======================================================================== */
+    .ppt-slide-canvas {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: calc(100vh * 16 / 9);
+      max-height: calc(100vw * 9 / 16);
+      aspect-ratio: 16 / 9;
+      background-color: var(--bg-color);
+      box-shadow: 0 0 70px rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      /* Top micro accent bar */
+      border-top: 3px solid var(--green);
+    }
+
+    /* Ambient Subtle Camo Grid */
+    .ppt-slide-canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        radial-gradient(circle at 50% 15%, rgba(74, 222, 128, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 85% 85%, rgba(107, 142, 78, 0.06) 0%, transparent 50%),
+        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(74, 222, 128, 0.015) 40px, rgba(74, 222, 128, 0.015) 41px),
+        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(74, 222, 128, 0.015) 40px, rgba(74, 222, 128, 0.015) 41px);
+    }
+
+    /* Individual Slide View with PowerPoint Directional Wipe/Push */
+    .slide-view {
+      position: absolute;
+      inset: 0;
+      padding: 3rem 4.2rem 3.2rem 4.2rem;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateX(50px);
+      pointer-events: none;
+      z-index: 2;
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .slide-view.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .slide-view.slide-prev-exit {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    /* Standard Slide Header */
+    .slide-header {
+      margin-bottom: 1.6rem;
+      position: relative;
+    }
+
+    .slide-category {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--text-white);
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* Standard Slide Footer inside Slide */
+    .slide-footer-meta {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 4.2rem;
+      right: 4.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(46, 70, 52, 0.5);
+      padding-top: 8px;
+      z-index: 2;
+    }
+
+    .slide-footer-num {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ========================================================================
+       PRACTICAL ARROWS & TRANSITIONS
+       ======================================================================== */
+    .practical-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .practical-arrow svg {
+      width: 24px;
+      height: 18px;
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.4));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    @keyframes pulseArrow {
+      0% { transform: translateX(0); opacity: 0.6; }
+      50% { transform: translateX(4px); opacity: 1; filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.9)); }
+      100% { transform: translateX(0); opacity: 0.6; }
+    }
+
+    .arrow-anim svg {
+      animation: pulseArrow 2.2s infinite ease-in-out;
+    }
+
+    /* ========================================================================
+       SLIDE-SPECIFIC PPT LAYOUTS
+       ======================================================================== */
+
+    /* SLIDE 1: Title Cover */
+    .s1-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1.2rem;
+    }
+
+    .s1-emblem {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      border: 3px solid var(--green);
+      box-shadow: 0 0 35px rgba(74, 222, 128, 0.4), inset 0 0 20px rgba(74, 222, 128, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      color: var(--green);
+    }
+
+    .s1-title {
+      font-family: var(--font-heading);
+      font-size: 4.4rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: var(--text-white);
+      line-height: 1;
+    }
+
+    .s1-sub {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.1em;
+    }
+
+    .s1-tagline {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--gold);
+      font-family: Georgia, serif;
+    }
+
+    .s1-meta-pills {
+      display: flex;
+      gap: 14px;
+      margin-top: 1rem;
+    }
+
+    .s1-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+    }
+
+    /* SLIDE 2: The Information Gap */
+    .s2-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .s2-col-card {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.6rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .s2-col-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .s2-col-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .s2-col-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Practical Bottom Flow Bar */
+    .flow-bar-container {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .flow-bar-step {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 9px;
+      border-radius: 6px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .flow-bar-step.alert {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* SLIDE 3: 8 Pipeline Stages */
+    .pipeline-grid-8 {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 8px;
+      align-items: stretch;
+      margin-bottom: 1.6rem;
+    }
+
+    .p8-node {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.2rem 0.6rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .p8-node:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 16px rgba(74, 222, 128, 0.25);
+    }
+
+    .p8-node.active-graph {
+      background: rgba(74, 222, 128, 0.12);
+      border-color: var(--green);
+    }
+
+    .p8-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .p8-title {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-white);
+      line-height: 1.2;
+    }
+
+    .p8-desc {
+      font-size: 10px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* SLIDE 4: 4 Steps */
+    .s4-steps-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.6rem;
+    }
+
+    .s4-step-card {
+      flex: 1;
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.6rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .s4-step-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .s4-step-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .s4-step-title {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .s4-step-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* SLIDE 5: Graph */
+    .s5-split {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 1.8rem;
+    }
+
+    .graph-interactive-diagram {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .graph-node-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 14px;
+    }
+
+    .graph-pill-node {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-white);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .graph-pill-node.vehicle { border-color: var(--green); color: var(--green); }
+    .graph-pill-node.weapon { border-color: var(--gold); color: var(--gold); }
+    .graph-pill-node.unit { border-color: var(--cyan); color: var(--cyan); }
+    .graph-pill-node.incident { border-color: var(--red); color: var(--red); }
+
+    .graph-edge-pill {
+      background: rgba(18, 27, 20, 0.8);
+      border: 1px dashed var(--green);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* SLIDE 6: Agents */
+    .agents-grid-6 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 1.6rem;
+    }
+
+    .agent-box {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.4rem 0.8rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .agent-box:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    /* SLIDE 7: 3 Reports */
+    .s7-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 1.6rem;
+    }
+
+    .report-card {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .report-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .report-fact {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    /* SLIDE 8: UI Mockup */
+    .s8-split {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 1.8rem;
+      align-items: center;
+    }
+
+    .ui-mockup-frame {
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .ui-mockup-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* SLIDE 9: Live Demo */
+    .s9-pipeline {
+      background: var(--card-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .s9-step {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .s9-step.active {
+      color: var(--green);
+    }
+
+    .demo-query-box {
+      background: var(--card-dark);
+      border-left: 4px solid var(--gold);
+      padding: 1rem 1.4rem;
+      border-radius: 6px;
+    }
+
+    .demo-q-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .demo-q-text {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-top: 4px;
+    }
+
+    /* SLIDE 10: Closing */
+    .s10-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .s10-jai-hind {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      text-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
+    }
+
+    .s10-thanks {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    .s10-project {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: 0.1em;
+    }
+
+    .s10-motto-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 0.5rem;
+    }
+
+    .s10-motto-pill {
+      background: var(--card-dark);
+      border: 1px solid var(--green);
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-white);
+    }
+
+    /* ========================================================================
+       POWERPOINT SLIDESHOW FLOATING CONTROLS (AUTOHIDING HUD)
+       ======================================================================== */
+    .ppt-hud-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 28px;
+      z-index: 100;
+      background: rgba(18, 27, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 40px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      opacity: 0.4;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .ppt-hud-controls:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+      border-color: var(--green);
+    }
+
+    .ppt-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+    }
+
+    .ppt-btn:hover {
+      background: rgba(74, 222, 128, 0.2);
+      color: var(--green);
+    }
+
+    .ppt-btn-primary {
+      background: rgba(74, 222, 128, 0.2);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+
+    .ppt-btn-primary:hover {
+      background: var(--green);
+      color: #121b14;
+    }
+
+    .ppt-hud-divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .ppt-slide-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      padding: 0 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================================
+       POWERPOINT 16:9 SLIDE CANVAS
+       ====================================================================== -->
+  <div class="ppt-slide-canvas" id="ppt-canvas">
+
+    <!-- ==================================================================
+         SLIDE 1: TITLE / COVER
+         ================================================================== -->
+    <section class="slide-view active" id="slide-1">
+      <div class="s1-wrap">
+        <div class="s1-emblem">◈</div>
+        <h1 class="s1-title">TRINETRA</h1>
+        <h2 class="s1-sub">MULTIMODAL INTELLIGENCE FUSION SYSTEM</h2>
+        <p class="s1-tagline">“From Fragmented Information to Strategic Insight.”</p>
+        <div class="s1-meta-pills">
+          <span class="s1-pill">Agentic AI Knowledge Graph Builder</span>
+          <span class="s1-pill">Problem Statement 05 (PS-05)</span>
+          <span class="s1-pill">Military-Grade Intelligence Standard</span>
+        </div>
+      </div>
+      <div class="slide-footer-meta">
+        <span>PROBLEM STATEMENT 05 // INTERNAL AGENTIC AI HACKATHON</span>
+        <span class="slide-footer-num">01 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 2: THE INFORMATION GAP (PRACTICAL ARROWS)
+         ================================================================== -->
+    <section class="slide-view" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-category">THE INFORMATION GAP</div>
+        <h2 class="slide-title">Fragmented information. Disconnected knowledge.</h2>
+        <div class="slide-subtitle">Important information exists across reports — but remains disconnected.</div>
+      </div>
+
+      <div class="s2-grid">
+        <div class="s2-col-card">
+          <div class="s2-col-title">01 // DIFFERENT NAMES</div>
+          <div class="s2-col-body">The same entity may appear under different names across isolated reports. Syntax aliases and informal call-signs prevent automated direct matches.</div>
+        </div>
+        <div class="s2-col-card">
+          <div class="s2-col-title">02 // HIDDEN RELATIONSHIPS</div>
+          <div class="s2-col-body">Links and associations are difficult to discover across disconnected documents. Critical operational relationships remain trapped in data silos.</div>
+        </div>
+        <div class="s2-col-card">
+          <div class="s2-col-title">03 // MANUAL ANALYSIS</div>
+          <div class="s2-col-body">Cross-report review is time-consuming, tedious, and prone to human oversight. Analysts spend 80% of their time manually correlating memos.</div>
+        </div>
+      </div>
+
+      <!-- Practical Bottom Flow Bar with Animated Arrows -->
+      <div class="flow-bar-container">
+        <div class="flow-bar-step">📄 SCATTERED REPORTS</div>
+        <div class="practical-arrow arrow-anim">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div class="flow-bar-step">⚡ DISCONNECTED NODES</div>
+        <div class="practical-arrow arrow-anim">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div class="flow-bar-step alert">⚠️ FRAGMENTED INFORMATION</div>
+        <div class="practical-arrow arrow-anim">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div class="flow-bar-step alert">❌ DISCONNECTED KNOWLEDGE</div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // CHALLENGE ANALYSIS</span>
+        <span class="slide-footer-num">02 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 3: THE TRINETRA SOLUTION (8-STAGE PIPELINE)
+         ================================================================== -->
+    <section class="slide-view" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-category">THE TRINETRA SOLUTION</div>
+        <h2 class="slide-title">From reports to connected, queryable insight</h2>
+        <div class="slide-subtitle">TRINETRA converts multiple unstructured reports into one connected, queryable Knowledge Graph.</div>
+      </div>
+
+      <div class="pipeline-grid-8">
+        <div class="p8-node">
+          <div class="p8-num">01</div>
+          <div class="p8-title">MULTIPLE REPORTS</div>
+          <div class="p8-desc">PDF, DOCX, TXT & imagery</div>
+        </div>
+        <div class="p8-node">
+          <div class="p8-num">02</div>
+          <div class="p8-title">DOCUMENT PROCESSING</div>
+          <div class="p8-desc">OCR & layout parsing</div>
+        </div>
+        <div class="p8-node">
+          <div class="p8-num">03</div>
+          <div class="p8-title">EXTRACTION</div>
+          <div class="p8-desc">Autonomous NER & triples</div>
+        </div>
+        <div class="p8-node">
+          <div class="p8-num">04</div>
+          <div class="p8-title">ENTITY RESOLUTION</div>
+          <div class="p8-desc">Alias clustering</div>
+        </div>
+        <div class="p8-node">
+          <div class="p8-num">05</div>
+          <div class="p8-title">INFORMATION FUSION</div>
+          <div class="p8-desc">Multi-source merge</div>
+        </div>
+        <div class="p8-node active-graph">
+          <div class="p8-num">06</div>
+          <div class="p8-title">KNOWLEDGE GRAPH</div>
+          <div class="p8-desc">Connected RDF network</div>
+        </div>
+        <div class="p8-node">
+          <div class="p8-num">07</div>
+          <div class="p8-title">NATURAL QUERY</div>
+          <div class="p8-desc">GraphRAG reasoning</div>
+        </div>
+        <div class="p8-node">
+          <div class="p8-num">08</div>
+          <div class="p8-title">ANSWER + EVIDENCE</div>
+          <div class="p8-desc">Grounded citations</div>
+        </div>
+      </div>
+
+      <div class="flow-bar-container">
+        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">PROVENANCE ASSURANCE:</span>
+        <span style="font-size: 12px; color: var(--text-white);">Every extracted entity, relationship, and GraphRAG answer links directly to page-numbered source evidence.</span>
+        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--green); font-weight: 700;">ZERO HALLUCINATIONS</span>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // END-TO-END PIPELINE</span>
+        <span class="slide-footer-num">03 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 4: HOW TRINETRA WORKS (FOUR CONNECTED STEPS)
+         ================================================================== -->
+    <section class="slide-view" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-category">HOW TRINETRA WORKS</div>
+        <h2 class="slide-title">Four steps to connect facts from reports</h2>
+        <div class="slide-subtitle">Autonomous 4-stage pipeline that unifies multi-source intelligence reports.</div>
+      </div>
+
+      <div class="s4-steps-row">
+        <div class="s4-step-card">
+          <div class="s4-step-num">01 // STEP</div>
+          <div class="s4-step-title">ADD REPORTS</div>
+          <div class="s4-step-body">Upload several PDF reports.<br>Supports patrol briefs, signals intercepts, imagery memos, and surveillance logs.</div>
+        </div>
+
+        <div class="practical-arrow arrow-anim">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+
+        <div class="s4-step-card">
+          <div class="s4-step-num">02 // STEP</div>
+          <div class="s4-step-title">FIND FACTS</div>
+          <div class="s4-step-body">Find people, groups, events, equipment, places, and semantic links using zero-shot NER extraction.</div>
+        </div>
+
+        <div class="practical-arrow arrow-anim">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+
+        <div class="s4-step-card">
+          <div class="s4-step-num">03 // STEP</div>
+          <div class="s4-step-title">MATCH NAMES</div>
+          <div class="s4-step-body">Vehicle 1 / Equipment 1 / Team A / Event 1 ➔ Possible match.<br>Clusters aliases and syntactic variants.</div>
+        </div>
+
+        <div class="practical-arrow arrow-anim">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+
+        <div class="s4-step-card" style="border-color: var(--green);">
+          <div class="s4-step-num" style="color: var(--green);">04 // STEP</div>
+          <div class="s4-step-title">COMBINE</div>
+          <div class="s4-step-body">Combine matching facts and keep verifiable links to their source documents with zero loss of context.</div>
+        </div>
+      </div>
+
+      <div class="flow-bar-container">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">TACTICAL EXECUTION:</div>
+        <div style="font-size: 12px; color: var(--text-muted);">Unstructured Reports ➔ Discovered Entities ➔ Alias Clustering ➔ Unified Knowledge Graph</div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // OPERATIONAL METHODOLOGY</span>
+        <span class="slide-footer-num">04 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 5: FROM TEXT TO CONNECTED KNOWLEDGE (GRAPH)
+         ================================================================== -->
+    <section class="slide-view" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-category">FROM TEXT TO CONNECTED KNOWLEDGE</div>
+        <h2 class="slide-title">Entities become a source-grounded graph</h2>
+        <div class="slide-subtitle">ENTITY ──▶ RELATIONSHIP ──▶ ENTITY</div>
+      </div>
+
+      <div class="s5-split">
+        <!-- Visual Interactive Graph Diagram with Practical Arrows -->
+        <div class="graph-interactive-diagram">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">SYNTHESIZED KNOWLEDGE GRAPH VISUALIZATION:</div>
+          
+          <div class="graph-node-row">
+            <div class="graph-pill-node vehicle">
+              <span>Enemy Vehicle A</span>
+              <span style="font-size: 9px; opacity: 0.7;">[EQUIPMENT]</span>
+            </div>
+            <div class="graph-edge-pill">
+              <span>equipped with</span>
+              <span class="practical-arrow arrow-anim" style="font-size: 12px;">➔</span>
+            </div>
+            <div class="graph-pill-node weapon">
+              <span>Weapon X</span>
+              <span style="font-size: 9px; opacity: 0.7;">[WEAPONRY]</span>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-start; padding-left: 4.5rem;">
+            <div class="graph-edge-pill" style="flex-direction: column; padding: 6px 12px;">
+              <span>associated with</span>
+              <span class="practical-arrow arrow-anim" style="transform: rotate(90deg); margin-top: 2px;">➔</span>
+            </div>
+          </div>
+
+          <div class="graph-node-row">
+            <div class="graph-pill-node unit">
+              <span>Unit Alpha</span>
+              <span style="font-size: 9px; opacity: 0.7;">[ORGANIZATION]</span>
+            </div>
+            <div class="graph-edge-pill">
+              <span>mentioned in</span>
+              <span class="practical-arrow arrow-anim" style="font-size: 12px;">➔</span>
+            </div>
+            <div class="graph-pill-node incident">
+              <span>Incident Y</span>
+              <span style="font-size: 9px; opacity: 0.7;">[EVENT]</span>
+            </div>
+          </div>
+
+          <div style="font-size: 11px; color: var(--green); font-family: var(--font-mono); border-top: 1px solid var(--card-border); padding-top: 8px;">
+            ✓ Strategic Discovery: Incident Y is now directly tied to Weapon X via common node Enemy Vehicle A.
+          </div>
+        </div>
+
+        <!-- Grounding Principles Card -->
+        <div class="s2-col-card" style="justify-content: center; gap: 14px;">
+          <div style="font-family: var(--font-mono); font-size: 12px; color: var(--green); font-weight: 700;">SOURCE-GROUNDED PROVENANCE:</div>
+          <div style="font-size: 13px; color: var(--text-white); line-height: 1.5;">
+            <strong>Relationships are created strictly from information supported by source documents.</strong>
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--text-muted);">
+            <li>• Zero hallucinations: Speculative relationships are strictly prohibited.</li>
+            <li>• Multi-hop discovery: Finds connections across isolated memos.</li>
+            <li>• Full auditability: Exact page and character offset attached to every edge.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // SOURCE-GROUNDED GRAPH</span>
+        <span class="slide-footer-num">05 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 6: AGENTIC AI WORKFLOW
+         ================================================================== -->
+    <section class="slide-view" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-category">AGENTIC AI WORKFLOW</div>
+        <h2 class="slide-title">Specialized agents collaborate across the evidence chain</h2>
+        <div class="slide-subtitle">Specialized agents transform unstructured reports into structured, connected knowledge.</div>
+      </div>
+
+      <div class="agents-grid-6">
+        <div class="agent-box">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">01</div>
+          <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-white);">DOCUMENT AGENT</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Ingests PDF, DOCX, TXT & tables</div>
+        </div>
+        <div class="agent-box">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">02</div>
+          <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-white);">EXTRACTION AGENT</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Zero-shot domain entity recognition</div>
+        </div>
+        <div class="agent-box">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">03</div>
+          <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-white);">ENTITY RES AGENT</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Clusters cross-document aliases</div>
+        </div>
+        <div class="agent-box">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">04</div>
+          <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-white);">KNOWLEDGE FUSION</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Synthesizes graph & checks conflicts</div>
+        </div>
+        <div class="agent-box" style="border-color: var(--cyan);">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan); font-weight: 700;">05</div>
+          <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-white);">KNOWLEDGE GRAPH</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Decentralized graph memory</div>
+        </div>
+        <div class="agent-box">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--gold); font-weight: 700;">06</div>
+          <div style="font-family: var(--font-heading); font-size: 13px; font-weight: 700; color: var(--text-white);">QUERY AGENT</div>
+          <div style="font-size: 11px; color: var(--text-muted);">GraphRAG multi-hop engine</div>
+        </div>
+      </div>
+
+      <div class="flow-bar-container">
+        <div class="practical-arrow arrow-anim" style="font-size: 18px;">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div style="flex: 1; font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--green);">
+          ANSWER + SOURCE EVIDENCE
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">
+          Specialized agents eliminate single points of failure with complete auditability.
+        </div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // AGENTIC ARCHITECTURE</span>
+        <span class="slide-footer-num">06 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 7: THREE REPORTS, ONE CONNECTED VIEW
+         ================================================================== -->
+    <section class="slide-view" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-category">FICTIONAL / SYNTHETIC DEMO DATA · TRINETRA IN ACTION</div>
+        <h2 class="slide-title">Three reports, one connected view</h2>
+        <div class="slide-subtitle">Multi-source intelligence convergence scenario.</div>
+      </div>
+
+      <div class="s7-grid">
+        <div class="report-card">
+          <div class="report-badge">REPORT 01</div>
+          <div class="report-fact">Enemy Vehicle A equipped with Weapon X</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Sector Recon Brief • Vehicle mount observation</div>
+        </div>
+        <div class="report-card">
+          <div class="report-badge">REPORT 02</div>
+          <div class="report-fact">Enemy Vehicle A linked to Unit Alpha</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Signals Intercept • Command hierarchy match</div>
+        </div>
+        <div class="report-card">
+          <div class="report-badge">REPORT 03</div>
+          <div class="report-fact">Unit Alpha mentioned in Incident Y</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Surveillance Log • Incident involvement log</div>
+        </div>
+      </div>
+
+      <div class="flow-bar-container" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--gold);">
+          Vehicle A   ──▶   Weapon X   •   Unit Alpha   •   Incident Y
+        </div>
+        <div style="font-size: 12px; color: var(--text-muted);">
+          Fictional vehicle and aircraft silhouettes remain secondary to the verifiable evidence graph.
+        </div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // EVIDENCE SYNTHESIS</span>
+        <span class="slide-footer-num">07 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 8: USER INTERFACE (ANALYST WORKSPACE)
+         ================================================================== -->
+    <section class="slide-view" id="slide-8">
+      <div class="slide-header">
+        <div class="slide-category">SIMPLE USER EXPERIENCE</div>
+        <h2 class="slide-title">One workspace for the analyst</h2>
+        <div class="slide-subtitle">Real-time intelligence console conforming to PS-05 specifications.</div>
+      </div>
+
+      <div class="s8-split">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="s2-col-card">
+            <div class="s2-col-title">01 // DASHBOARD</div>
+            <div class="s2-col-body">Knowledge Graph + key statistics. Processing status, entity/relationship counts, and conflict indicators.</div>
+          </div>
+          <div class="s2-col-card">
+            <div class="s2-col-title">02 // SOURCES</div>
+            <div class="s2-col-body">Upload and manage multiple PDF reports with instant split-view inspection and parsing.</div>
+          </div>
+          <div class="s2-col-card">
+            <div class="s2-col-title">03 // ASK TRINETRA</div>
+            <div class="s2-col-body">Ask natural-language questions and receive source-grounded answers with source/page evidence.</div>
+          </div>
+        </div>
+
+        <div class="ui-mockup-frame">
+          <img src="/assets/images/ui_mockup.jpg" alt="Analyst Workspace UI Mockup" class="ui-mockup-img" onerror="this.src='/ui_mockup.jpg'">
+        </div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // OPERATOR WORKSPACE</span>
+        <span class="slide-footer-num">08 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 9: LIVE DEMO — END TO END
+         ================================================================== -->
+    <section class="slide-view" id="slide-9">
+      <div class="slide-header">
+        <div class="slide-category">FICTIONAL / SYNTHETIC DEMO DATA</div>
+        <h2 class="slide-title">LIVE DEMO — END TO END</h2>
+        <div class="slide-subtitle">Step-by-step verification flow with full audit provenance.</div>
+      </div>
+
+      <div class="s9-pipeline">
+        <div class="s9-step">1 UPLOAD <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step">2 PROCESS <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step">3 EXTRACT <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step">4 RESOLVE <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step">5 FUSE <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step">6 BUILD GRAPH <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step">7 ASK <span class="practical-arrow arrow-anim">➔</span></div>
+        <div class="s9-step active">8 ANSWER + EVIDENCE</div>
+      </div>
+
+      <div class="demo-query-box">
+        <div class="demo-q-title">EXAMPLE ANALYST QUERY:</div>
+        <div class="demo-q-text">“What information is available about Enemy Vehicle A?”</div>
+      </div>
+
+      <div class="s2-col-card" style="margin-top: 1rem; border-color: var(--green);">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--green); font-weight: 700;">
+          ✓ TRINETRA SYNTHESIS & AUDIT RESULT:
+        </div>
+        <div style="font-size: 13px; color: var(--text-white); line-height: 1.5;">
+          • Expected: Combined information, related entities, and supporting report/page references.<br>
+          • Related: Weapon X · Unit Alpha · Incident Y<br>
+          • Evidence: Fictional Report 01, p. 2 · Fictional Report 03, p. 1<br>
+          • Guardrail: Unsupported query ──▶ <strong style="color: var(--red);">INSUFFICIENT SOURCE EVIDENCE</strong>
+        </div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // LIVE VERIFICATION</span>
+        <span class="slide-footer-num">09 / 10</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SLIDE 10: CLOSING
+         ================================================================== -->
+    <section class="slide-view" id="slide-10">
+      <div class="s10-wrap">
+        <div class="s10-jai-hind">JAI HIND 🇮🇳</div>
+        <div class="s10-thanks">THANK YOU</div>
+        <div class="s10-project">TRINETRA</div>
+        <div class="s10-tagline">“From Fragmented Information to Strategic Insight.”</div>
+
+        <div class="s10-motto-row">
+          <div class="s10-motto-pill">Connect</div>
+          <div class="practical-arrow arrow-anim">➔</div>
+          <div class="s10-motto-pill">Fuse</div>
+          <div class="practical-arrow arrow-anim">➔</div>
+          <div class="s10-motto-pill">Discover</div>
+          <div class="practical-arrow arrow-anim">➔</div>
+          <div class="s10-motto-pill">Query</div>
+        </div>
+
+        <div style="margin-top: 1.2rem; display: flex; gap: 14px;">
+          <a href="/" class="ppt-btn ppt-btn-primary" style="padding: 10px 22px; font-size: 13px;">⚡ Return to Live Demo</a>
+          <a href="/TRINETRA_Hackathon_Presentation.pptx" download class="ppt-btn" style="padding: 10px 22px; font-size: 13px; background: rgba(255,255,255,0.06);">📥 Download PowerPoint (.pptx)</a>
+        </div>
+      </div>
+
+      <div class="slide-footer-meta">
+        <span>TRINETRA // DEFENCE INTELLIGENCE PLATFORM</span>
+        <span class="slide-footer-num">10 / 10</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ======================================================================
+       POWERPOINT SLIDESHOW FLOATING CONTROLS (AUTOHIDING HUD)
+       ====================================================================== -->
+  <div class="ppt-hud-controls" id="ppt-hud">
+    <button class="ppt-btn" id="btn-prev" title="Previous Slide (Left Arrow, PageUp)">◀</button>
+    <span class="ppt-slide-counter" id="slide-num">01 / 10</span>
+    <button class="ppt-btn" id="btn-next" title="Next Slide (Right Arrow, Space, Click)">▶</button>
+    <div class="ppt-hud-divider"></div>
+    <button class="ppt-btn" id="btn-fullscreen" title="Toggle Slideshow Fullscreen (F)">⛶</button>
+    <a href="/TRINETRA_Hackathon_Presentation.pptx" download class="ppt-btn ppt-btn-primary" title="Download PowerPoint Deck (.pptx)">📥 .PPTX</a>
+    <a href="/" class="ppt-btn" title="Return to Live Application">⚡ Live Demo</a>
+  </div>
+
+  <!-- PowerPoint Presentation Keyboard & Mouse Handlers -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    const slideNumEl = document.getElementById('slide-num');
+    const hudEl = document.getElementById('ppt-hud');
+
+    function goToSlide(n, direction = 'next') {
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+      if (n === currentSlide) return;
+
+      const prevSlideNum = currentSlide;
+      currentSlide = n;
+
+      for (let i = 1; i <= totalSlides; i++) {
+        const el = document.getElementById(`slide-${i}`);
+        if (el) {
+          if (i === currentSlide) {
+            el.className = 'slide-view active';
+          } else if (i === prevSlideNum) {
+            el.className = 'slide-view slide-prev-exit';
+          } else {
+            el.className = 'slide-view';
+          }
+        }
+      }
+
+      slideNumEl.textContent = `${String(currentSlide).padStart(2, '0')} / ${totalSlides}`;
+    }
+
+    // Prev / Next button listeners
+    document.getElementById('btn-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(currentSlide - 1, 'prev');
+    });
+
+    document.getElementById('btn-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      goToSlide(currentSlide + 1, 'next');
+    });
+
+    document.getElementById('btn-fullscreen').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        document.exitFullscreen().catch(err => console.log(err));
+      }
+    });
+
+    // PowerPoint Click-to-Advance on Slide Canvas
+    document.getElementById('ppt-canvas').addEventListener('click', (e) => {
+      // Ignore clicks on links or interactive controls
+      if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.ppt-hud-controls')) return;
+      
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      // Clicking left 25% goes backward, clicking anywhere else advances forward
+      if (clickX < rect.width * 0.25) {
+        goToSlide(currentSlide - 1, 'prev');
+      } else {
+        goToSlide(currentSlide + 1, 'next');
+      }
+    });
+
+    // PowerPoint Standard Keybindings
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') {
+        e.preventDefault();
+        goToSlide(currentSlide + 1, 'next');
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+        e.preventDefault();
+        goToSlide(currentSlide - 1, 'prev');
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(1, 'prev');
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides, 'next');
+      } else if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => console.log(err));
+        } else {
+          document.exitFullscreen().catch(err => console.log(err));
+        }
+      }
+    });
+
+    // Auto-dim HUD on idle
+    let hudTimer;
+    function resetHudTimer() {
+      hudEl.style.opacity = '1';
+      clearTimeout(hudTimer);
+      hudTimer = setTimeout(() => {
+        hudEl.style.opacity = '0.35';
+      }, 3500);
+    }
+    window.addEventListener('mousemove', resetHudTimer);
+    resetHudTimer();
+  </script>
+</body>
+</html>
